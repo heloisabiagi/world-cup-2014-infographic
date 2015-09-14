@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta charset="utf-8">
+      <title>Copa 2014 - Valor de Mercado | Valor Econômico</title>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="keywords" content="valor, economia, finanças, negócios, notícias, cotações, investimentos, carreiras, dólar, bolsa" />
+      <meta name="og:description" content="Confira o infográfico com o valor de mercado das seleções da Copa de 2014 e de seus respectivos jogadores">
+      <meta property="og:image" content="http://www.valor.com.br/sites/all/modules/custom/valor_copa2014/images/thumbs-infografico-copa-200-200.jpg" />
+      <meta property="og:site_name" content="Valor Econômico" />
+      <meta property="og:title" content="Copa 2014 - Valor de Mercado | Valor Econômico" />
+      <meta property="og:url" content="http://www.valor.com.br/copa2014/infografico-valor-mercado" />
+      <meta name="og:type" content="company" />
+      <!-- <link rel="stylesheet" type="text/css" href="http://www.valor.com.br/sites/all/themes/basic/css/fonts.css" /> -->
+      <link rel="stylesheet" type="text/css" href="css/style.css" />
+      <script type='text/javascript' src='js/jquery-1.11.0.min.js'></script>
+      <script type="text/javascript" src="js/raphael.js"></script>
+      <script type="text/javascript" src="js/modernizr.js"></script>
+      <script type="text/javascript" src="js/accounting.min.js"></script>
+      <script type="text/javascript">var copa2014 = copa2014 || {};</script>
+      <script type="text/javascript" src="js/paths.js"></script>
+      <script type="text/javascript" src="js/infografico-selecoes.js"></script>    
+      <!--[if lt IE 9]>
+      <link rel="stylesheet" type="text/css" href="/sites/all/modules/custom/valor_copa2014/css/ie.css" />
+      <![endif]-->
+   </head>
+   <body class="page-copa2014-1 no-sidebars page-copa2014 page-copa2014-infografico-valor-mercado page-copa2014">
+      <div id="header-top">
+         <h1> Copa 2014 - Valor de Mercado</h1>
+      </div>
+      <div id="geral">
+         <div id="page">
+            <div id="main">
+               <div id="infografico-selecoes">
+                  <div id="scenes">
+                     <section id="grupos-grafico" class="scene scene1 floater" data-scene="1">
+                        <div class="loader center"></div>
+                        <div id="info-mercado">
+                           <div id="selo-copa">
+                              <img src="http://www.valor.com.br/sites/all/modules/custom/valor_copa2014/css/img/selo-copa.png" alt="Valor na Copa" />
+                           </div>
+                           <div class="header-slot center-h">
+                              <h2 class="slot">
+                                 <span class="moeda">R$</span> 
+                                 <span class="valor-total">0</span>
+                                 <span class="data-atualizacao hidden-item"></span>
+                              </h2>
+                              <span class="slot-data">É o valor de mercado dos 736 jogadores das 32 seleções que compõem os 8 grupos da Copa de 2014 <span class="required">*</span></span>
+                           </div>
+                        </div>
+                        <div id="selecionar-grupo">
+                           <p class="group-title hidden-item">Selecione o grupo</p>
+                        </div>
+                        <div class="navegar"></div>
+                        <div id="grafico-valor-mercado" class="canvas"></div>
+                        <nav class="main-nav">
+                           <ul>
+                              <li class="btn-prev" data-shape="nav">Anterior</li>
+                              <li class="btn-next" data-scene="2" data-shape="nav">Próximo</li>
+                           </ul>
+                        </nav>
+                        <div class="disclaimer">
+                           <p class="info-fonte"><span class="orange">*</span> Valor baseado nos prováveis jogadores a serem convocados. A confirmação ocorrerá após 07/05/2014.</p>
+                        </div>
+                     </section>
+                     <section id="grupos-mapa" class="scene scene2 floater" data-scene="2">
+                        <nav class="menu-paises-grupos mapa-menu center-v">
+                           <p class="group-title title-paises-grupos hidden-item">Grupo <span class="grupo-nome"></span>
+                           </p>
+                           <ul class="paises-grupos rounded-items"></ul>
+                        </nav>
+                        <nav class="menu-grupos mapa-menu">
+                           <p class="group-title title-grupos hidden-item">Selecione o grupo</p>
+                           <ul id="navegacao-grupos-mapa" class="grupos rounded-items inline-list left">
+                              <li>
+                                 <div class="svg-grupo" id="svg-grupo-A-1" data-grupo="A"></div>
+                              </li>
+                              <li>
+                                 <div class="svg-grupo" id="svg-grupo-B-1" data-grupo="B"></div>
+                              </li>
+                              <li>
+                                 <div class="svg-grupo" id="svg-grupo-C-1" data-grupo="C"></div>
+                              </li>
+                              <li>
+                                 <div class="svg-grupo" id="svg-grupo-D-1" data-grupo="D"></div>
+                              </li>
+                              <li>
+                                 <div class="svg-grupo" id="svg-grupo-E-1" data-grupo="E"></div>
+                              </li>
+                              <li>
+                                 <div class="svg-grupo" id="svg-grupo-F-1" data-grupo="F"></div>
+                              </li>
+                              <li>
+                                 <div class="svg-grupo" id="svg-grupo-G-1" data-grupo="G"></div>
+                              </li>
+                              <li>
+                                 <div class="svg-grupo" id="svg-grupo-H-1" data-grupo="H"></div>
+                              </li>
+                           </ul>
+                        </nav>
+                        <div id="grafico-paises">
+                           <div id="grafico-paises-data"></div>
+                           <div id="mapa-atualizacao" class="hidden-item">
+                              <p class="data-atualizacao">Atualizado em <br /> 07/04/2014</p>
+                           </div>
+                        </div>
+                        <div id="mapa-selecoes" class="hidden-item"></div>
+                        <nav class="main-nav">
+                           <ul>
+                              <li class="btn-prev" data-scene="1" data-shape="nav">Anterior</li>
+                              <li class="btn-next" data-scene="3" data-shape="nav">Próximo</li>
+                           </ul>
+                        </nav>
+                     </section>
+                     <section id="grupos-detalhe" class="scene scene3 floater" data-scene="3" data-load="unloaded">
+                        <nav class="menu-paises-grupos mapa-menu center-v">
+                           <p class="group-title title-paises-grupos hidden-item">Grupo <span class="grupo-nome"></span>
+                           </p>
+                           <ul class="paises-grupos rounded-items"></ul>
+                        </nav>
+                        <div id="pais-info">
+                           <div id="pais-dinamico">
+                           </div>
+                           <div id="detalhe-bottom" class="floater">
+                              <nav class="menu-grupos mapa-menu floater left">
+                                 <p class="group-title title-grupos hidden-item"> Selecione o grupo</p>
+                                 <ul id="navegacao-grupos-detalhe" class="grupos rounded-items inline-list left">
+                                    <li>
+                                       <div class="svg-grupo" id="svg-grupo-A-2" data-grupo="A"></div>
+                                    </li>
+                                    <li>
+                                       <div class="svg-grupo" id="svg-grupo-B-2" data-grupo="B"></div>
+                                    </li>
+                                    <li>
+                                       <div class="svg-grupo" id="svg-grupo-C-2" data-grupo="C"></div>
+                                    </li>
+                                    <li>
+                                       <div class="svg-grupo" id="svg-grupo-D-2" data-grupo="D"></div>
+                                    </li>
+                                    <li>
+                                       <div class="svg-grupo" id="svg-grupo-E-2" data-grupo="E"></div>
+                                    </li>
+                                    <li>
+                                       <div class="svg-grupo" id="svg-grupo-F-2" data-grupo="F"></div>
+                                    </li>
+                                    <li>
+                                       <div class="svg-grupo" id="svg-grupo-G-2" data-grupo="G"></div>
+                                    </li>
+                                    <li>
+                                       <div class="svg-grupo" id="svg-grupo-H-2" data-grupo="H"></div>
+                                    </li>
+                                 </ul>
+                              </nav>
+                              <nav class="main-nav right">
+                                 <ul>
+                                    <li class="btn-prev" data-scene="2" data-shape="nav">Anterior</li>
+                                    <li class="btn-next" data-shape="nav">Próximo</li>
+                                 </ul>
+                              </nav>
+                           </div>
+                        </div>
+                     </section>
+                  </div>
+               </div>
+               <div id="data-final">
+                  <p class="info-fonte"><span class="orange">*</span> Valor baseado nos prováveis jogadores a serem convocados. A confirmação ocorrerá após 07/05/2014. A cotação do Euro utilizada na data de atualização foi de R$3,06.</p>
+                  <div class="n-data">
+                     <p><strong>Fonte:</strong> <a class="link-pluri" href="http://www.pluriconsultoria.com.br/" title="Visite o site da Pluri Consultoria" target="_blank">Pluri Consultoria</a></p>
+                     <p><strong>Créditos:</strong> Rodrigo Silva, Heloísa Biagi, Wianey Batista.</p>
+                     <p><strong>Colaboração:</strong> Antônio Matias, Natasha Zito, Silvia Matsuura. <strong>Apoio:</strong> Amanda Salim, Guilherme Ocampos, Luciana Alencar, Maiara Faigle, Paula Cleto, Rafael Matias e Valmir Júnior.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
