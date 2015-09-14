@@ -21,18 +21,14 @@ $.fn.scroll_nav = function() {
 				// comportamento para as bolinhas que ativam os grupos
 				case 'circle':
 				case 'text':																		
-					obj0['scene2'].start_scene(grupo);
-					obj0['scene3'].start_scene(grupo);
+					copa2014.selecoes.obj0['scene2'].start_scene(grupo);
+					copa2014.selecoes.obj0['scene3'].start_scene(grupo);
 					
 					if(curr_scene == 1) {
 						$("html, body").animate({ scrollTop: $(next_el).offset().top }, 500);
 					}
 					
 					$('#grupos-mapa').attr('data-ativo', grupo);
-					if(typeof _gaq != 'undefined') {
-						contexto = $('.scene' + curr_scene).attr('id');
-						_gaq.push(['_trackEvent','Infográfico Copa 2014','grupo-' +grupo, contexto]);
-						}
 					
 				break;
 				
@@ -40,14 +36,9 @@ $.fn.scroll_nav = function() {
 				case 'country':	
 					if(grupo == $('#grupos-mapa').attr('data-ativo')) {
 						pais = $(this).attr('data-pais');					
-						obj0['scene2'].start_scene(grupo);
-						obj0['scene3'].start_scene(grupo, pais);
+						copa2014.selecoes.obj0['scene2'].start_scene(grupo);
+						copa2014.selecoes.obj0['scene3'].start_scene(grupo, pais);
 						$("html, body").animate({ scrollTop: $('.scene3').offset().top }, 500);
-						
-						if(typeof _gaq != 'undefined') {
-							contexto = $('.scene' + curr_scene).attr('id');
-							_gaq.push(['_trackEvent','Infográfico Copa','pais-' +pais, contexto]);
-						}
 							
 					} else {
 						return false;
@@ -59,8 +50,8 @@ $.fn.scroll_nav = function() {
 				case 'arc':
 				case 'flag':								
 					pais = $(this).attr('data-pais');					
-					obj0['scene2'].start_scene(grupo);
-					obj0['scene3'].start_scene(grupo, pais);
+					copa2014.selecoes.obj0['scene2'].start_scene(grupo);
+					copa2014.selecoes.obj0['scene3'].start_scene(grupo, pais);
 					$("html, body").animate({ scrollTop: $('.scene3').offset().top }, 500);	
 					
 					if(typeof _gaq != 'undefined') {
@@ -75,11 +66,6 @@ $.fn.scroll_nav = function() {
 				case 'nav':
 					var go_to = $(this).attr('data-scene');
 					$("html, body").animate({ scrollTop: $('.scene' + go_to).offset().top }, 500);
-					
-					if(typeof _gaq != 'undefined') {
-							contexto = $('.scene' + curr_scene).attr('id');
-							_gaq.push(['_trackEvent','Infográfico Copa 2014','navegacao-global', contexto]);
-						}
 					
 				break;
 				
@@ -112,18 +98,7 @@ $.fn.svg = function(options) {
  */
 copa2014.selecoes = (function(){
 
-	return {
-		init: function(){
-			obj0 = this;		
-			var data = obj0.get_data();
-			if(!data) {
-				obj0.store_data();	
-			} else {
-				obj0['scene1'].start_scene();
-				obj0['scene2'].start_scene();
-				obj0['scene3'].start_scene();
-				}
-			},
+	var obj0 = {		
 		main_data: '',	
 		colors: {
 			'0': '#107d84',
@@ -903,8 +878,22 @@ copa2014.selecoes = (function(){
 							 $('#thumb-tecnico').svg({ path: tecnico, width: '45', height: '40', x: '465', y: '1230' });
 					}	
 			}// scene3
+		} //obj0
+
+		return {
+			obj0: obj0,
+			init: function(){	
+				var data = obj0.get_data();
+				if(!data) {
+					obj0.store_data();	
+				} else {
+					obj0['scene1'].start_scene();
+					obj0['scene2'].start_scene();
+					obj0['scene3'].start_scene();
+					}
+				}
+	}
 			
-	}// return
 })(); // function
 
 $(document).ready(function () {
