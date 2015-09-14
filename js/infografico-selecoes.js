@@ -4,7 +4,7 @@
  */
 
 /* Navegação via scroll */
-$.fn.scroll_nav = function() {
+$.fn.scrollNav = function() {
 	
    return this.each(function(){
 	  $(this).on('click', function(e) {
@@ -21,8 +21,8 @@ $.fn.scroll_nav = function() {
 				// comportamento para as bolinhas que ativam os grupos
 				case 'circle':
 				case 'text':																		
-					copa2014.selecoes.obj0['scene2'].start_scene(grupo);
-					copa2014.selecoes.obj0['scene3'].start_scene(grupo);
+					copa2014.teams.mainGraphic['scene2'].startScene(grupo);
+					copa2014.teams.mainGraphic['scene3'].startScene(grupo);
 					
 					if(curr_scene == 1) {
 						$("html, body").animate({ scrollTop: $(next_el).offset().top }, 500);
@@ -36,8 +36,8 @@ $.fn.scroll_nav = function() {
 				case 'country':	
 					if(grupo == $('#grupos-mapa').attr('data-ativo')) {
 						pais = $(this).attr('data-pais');					
-						copa2014.selecoes.obj0['scene2'].start_scene(grupo);
-						copa2014.selecoes.obj0['scene3'].start_scene(grupo, pais);
+						copa2014.teams.mainGraphic['scene2'].startScene(grupo);
+						copa2014.teams.mainGraphic['scene3'].startScene(grupo, pais);
 						$("html, body").animate({ scrollTop: $('.scene3').offset().top }, 500);
 							
 					} else {
@@ -50,14 +50,9 @@ $.fn.scroll_nav = function() {
 				case 'arc':
 				case 'flag':								
 					pais = $(this).attr('data-pais');					
-					copa2014.selecoes.obj0['scene2'].start_scene(grupo);
-					copa2014.selecoes.obj0['scene3'].start_scene(grupo, pais);
+					copa2014.teams.mainGraphic['scene2'].startScene(grupo);
+					copa2014.teams.mainGraphic['scene3'].startScene(grupo, pais);
 					$("html, body").animate({ scrollTop: $('.scene3').offset().top }, 500);	
-					
-					if(typeof _gaq != 'undefined') {
-							contexto = $('.scene' + curr_scene).attr('id');
-							_gaq.push(['_trackEvent','Infográfico Copa 2014','pais-' +pais, contexto]);
-						}
 					
 										
 				break;
@@ -96,40 +91,40 @@ $.fn.svg = function(options) {
  * MAIN FUNCTIONS
  *
  */
-copa2014.selecoes = (function(){
+copa2014.teams = (function(){
 
-	var obj0 = {		
-		main_data: '',	
+	var mainGraphic = {		
+		mainData: '',	
 		colors: {
 			'0': '#107d84',
 			'1': '#e2b900',
 			'2': '#de4331',
 			'3': '#05476d'
 			},			
-		store_data: function(){			
+		storeData: function(){			
 				$.ajax({
 					  dataType: "json",
 					  url: "js/selecoes2014.json",
 					  success: function(data){
-						 obj0.main_data = data;
-						 obj0['scene1'].start_scene();
-						 obj0['scene2'].start_scene();
-						 obj0['scene3'].start_scene();
+						 mainGraphic.mainData = data;
+						 mainGraphic['scene1'].startScene();
+						 mainGraphic['scene2'].startScene();
+						 mainGraphic['scene3'].startScene();
 						},
 					  error: function(){
 						  alert('Não foi possível carregar o infográfico');
 						  }
 					  });	
 			},
-		get_data: function(){
-			return obj0.main_data;
+		getData: function(){
+			return mainGraphic.mainData;
 			},
-		navegacao_grupos: function(){
-			$('[data-shape], .main-nav li').scroll_nav();
+		groupNavigation: function(){
+			$('[data-shape], .main-nav li').scrollNav();
 			},				
 		scene1: {							
-			start_scene: function(){
-				var data = obj0.get_data();
+			startScene: function(){
+				var data = mainGraphic.getData();
 				if(!data) { return false; }
 				
 				valor_total = accounting.formatNumber(data.total_real, 0, ".", ",");
@@ -235,7 +230,7 @@ copa2014.selecoes = (function(){
 							
 							__barO[pais]  = __grafico.rect((s1i3 * (ballgroup_d + d)) - (rect_w/2), (((altura_grafico) - scale(data_heights[0])) - bar_y), rect_w, scale(data_heights[0]) + 5).attr({
 								'stroke-width': '0',
-								'fill': obj0.colors[0]
+								'fill': mainGraphic.colors[0]
 								});
 							
 							__barO[pais].node.setAttribute('data-grupo', atributos['nome']);
@@ -253,7 +248,7 @@ copa2014.selecoes = (function(){
 							__barO[pais] = __grafico.rect((s1i3 * (ballgroup_d + d)) -(rect_w/2), (__barO[arr_grupo[arr_grupo.length -2]].getBBox().y - scale(data_heights[s1i4 -1])), rect_w, scale(data_heights[s1i4 -1])).
 							attr({
 								'stroke-width': '0',
-								'fill': obj0.colors[s1i4 -1]
+								'fill': mainGraphic.colors[s1i4 -1]
 								});
 							
 							__barO[pais].node.setAttribute('data-grupo', atributos['nome']);
@@ -269,9 +264,9 @@ copa2014.selecoes = (function(){
 							__bar_anima.animate(anim.delay(100*s1i2));	
 							
 							$('#grupos-grafico .hidden-item').animate({opacity:1}, 500);
-							obj0.scene1.tooltip_pais();
-							obj0.scene1.tooltip_grupo();
-							obj0.navegacao_grupos();
+							mainGraphic.scene1.tooltipCountry();
+							mainGraphic.scene1.tooltipGroup();
+							mainGraphic.groupNavigation();
 							
 								
 										});// each bars
@@ -286,8 +281,8 @@ copa2014.selecoes = (function(){
 									
 													  
 				}, 
-			tooltip_pais: function(){
-				var data = obj0.get_data();
+			tooltipCountry: function(){
+				var data = mainGraphic.getData();
 				if(!data) { return false;}
 				
 				var rect_el = $('[data-tooltip=tooltip-pais]');				
@@ -340,8 +335,8 @@ copa2014.selecoes = (function(){
 					});
 					
 				},
-			tooltip_grupo: function(){
-				var data = obj0.get_data();
+			tooltipGroup: function(){
+				var data = mainGraphic.getData();
 				if(!data) { return false;}
 				
 				var circle_el = $('[data-tooltip=tooltip-grupo]');
@@ -363,17 +358,17 @@ copa2014.selecoes = (function(){
 						format_valor_grupo = accounting.formatNumber(Math.round(valor_grupo), 1, ".", ",");
 						}
 					
-					var tooltip_grupo = '<div class="tooltip1 tooltip-' + get_grupo +'">';
-					tooltip_grupo += '<div class="tip-header"><small>soma do GRUPO</small></div>';
-					tooltip_grupo += '<div class="tip-body"><big>' + format_valor_grupo.replace(/\,0$/, '') + '</big></div>';
-					tooltip_grupo += '<div class="tip-footer"><small>R$ em milhões</small></div>';
-					tooltip_grupo += '</div>';
+					var tooltipGroup = '<div class="tooltip1 tooltip-' + get_grupo +'">';
+					tooltipGroup += '<div class="tip-header"><small>soma do GRUPO</small></div>';
+					tooltipGroup += '<div class="tip-body"><big>' + format_valor_grupo.replace(/\,0$/, '') + '</big></div>';
+					tooltipGroup += '<div class="tip-footer"><small>R$ em milhões</small></div>';
+					tooltipGroup += '</div>';
 					
-					$('#grafico-valor-mercado').prepend(tooltip_grupo);
+					$('#grafico-valor-mercado').prepend(tooltipGroup);
 					
-					var tooltip_grupo_width = $('.tooltip-' + get_grupo).width();
-					var tooltip_grupo_height = $('.tooltip-' + get_grupo).height();
-					$('.tooltip-' + get_grupo).css({left: grupo_left -(tooltip_grupo_width +20), top:  grupo_top - 25}).addClass('lt');
+					var tooltipGroup_width = $('.tooltip-' + get_grupo).width();
+					var tooltipGroup_height = $('.tooltip-' + get_grupo).height();
+					$('.tooltip-' + get_grupo).css({left: grupo_left -(tooltipGroup_width +20), top:  grupo_top - 25}).addClass('lt');
 					
 					s1i1 =-1;
 					
@@ -400,31 +395,31 @@ copa2014.selecoes = (function(){
 						var el_width = $(this).attr('width');
 						var el_height = $(this).attr('height');
 						
-						tooltip_pais =  '<div class="tooltip1 tooltip-' + get_pais +'">';
-						tooltip_pais += '<div class="tip-header flag-header"><div class="small-flag" id="flag-'+ get_pais + '"></div>';
+						tooltipCountry =  '<div class="tooltip1 tooltip-' + get_pais +'">';
+						tooltipCountry += '<div class="tip-header flag-header"><div class="small-flag" id="flag-'+ get_pais + '"></div>';
 						if (last_space != -1) {	
-						tooltip_pais += '<small class="multi-line">' + nome_pais + '</small>';
+						tooltipCountry += '<small class="multi-line">' + nome_pais + '</small>';
 						} else {
-							tooltip_pais += '<small>' + nome_pais + '</small>';
+							tooltipCountry += '<small>' + nome_pais + '</small>';
 							}
-						tooltip_pais += '</div>';	
-						tooltip_pais += '</div>';
+						tooltipCountry += '</div>';	
+						tooltipCountry += '</div>';
 						
-						$('#grafico-valor-mercado').prepend(tooltip_pais);						
+						$('#grafico-valor-mercado').prepend(tooltipCountry);						
 						
 						var bandeira = copa2014.flags[get_pais];
 						
 						$('#flag-' + get_pais).svg({ path: bandeira, width: '30', height: '20', vx: '0', vy: '0', vwidth: '60', vheight: '40' });
 						
-						var tooltip_pais_width = $('.tooltip-' + get_pais).width();
-						var tooltip_pais_height = $('.tooltip-' + get_pais).height();
+						var tooltipCountry_width = $('.tooltip-' + get_pais).width();
+						var tooltipCountry_height = $('.tooltip-' + get_pais).height();
 						
 						if(s1i1 == 0 && s1i1%2 == 0) {
-						$('.tooltip-' + get_pais).css({left: el_left + 30, top:  el_top - tooltip_pais_height}).addClass('rt');
+						$('.tooltip-' + get_pais).css({left: el_left + 30, top:  el_top - tooltipCountry_height}).addClass('rt');
 						} else if(s1i1 != 0 && s1i1%2 == 0) { 
 						$('.tooltip-' + get_pais).css({left: el_left + 30, top:  el_top}).addClass('rt');
 						} else{
-						$('.tooltip-' + get_pais).css({left: el_left - (tooltip_pais_width + 20), top:  el_top}).addClass('lt');
+						$('.tooltip-' + get_pais).css({left: el_left - (tooltipCountry_width + 20), top:  el_top}).addClass('lt');
 							}
 					}); //each
 					$('.tooltip1').animate({opacity: 1}, 200);
@@ -454,14 +449,14 @@ copa2014.selecoes = (function(){
 				}							
 		}, // scene1
 		scene2: {
-			start_scene: function(grupo){
+			startScene: function(grupo){
 				var grupo = grupo? grupo: "A";
-				var data = obj0.get_data();
+				var data = mainGraphic.getData();
 					if(!data) { return false;}
 					var data_grupo = data['grupos'][grupo];	
 					
 					// limpa cena anterior
-					obj0.scene2.clear_scene();
+					mainGraphic.scene2.clearScene();
 					$('#grupos-mapa').attr('data-ativo', grupo);
 					$('.grupo-nome').text(grupo);
 						
@@ -489,7 +484,7 @@ copa2014.selecoes = (function(){
 			
 									var pais_ie8 = copa2014.mundo[get_pais];
 									for(s2i2=0; s2i2 < pais_ie8.length; s2i2++) {
-										pais_ie8[s2i2].attr({'fill': obj0.colors[s2i1]});
+										pais_ie8[s2i2].attr({'fill': mainGraphic.colors[s2i1]});
 										}
 									
 																			
@@ -504,16 +499,16 @@ copa2014.selecoes = (function(){
 								});
 							
 							$('#grupos-mapa .hidden-item').animate({opacity:1}, 500);
-							obj0.scene2.rounded_chart(grupo);
-							obj0.scene2.group_menu();
-							obj0.scene2.ver_pais();
-							obj0.navegacao_grupos();
+							mainGraphic.scene2.roundedChart(grupo);
+							mainGraphic.scene2.groupMenu();
+							mainGraphic.scene2.viewCountry();
+							mainGraphic.groupNavigation();
 							
 					
-			}, //start_scene
-			rounded_chart: function(grupo){
+			}, //startScene
+			roundedChart: function(grupo){
 					var grupo = grupo? grupo: "A";
-					var data = obj0.get_data();
+					var data = mainGraphic.getData();
 					var data_grupo = data['grupos'][grupo];
 					
 					var scalePercent = function(num) {
@@ -569,7 +564,7 @@ copa2014.selecoes = (function(){
 							
 						start = scaleArcSize(s2i3);
 						
-						var __arc = __grafico_arco.path().attr({ arc: [percent, obj0.colors[s2i3], 66, start], 'stroke-width': 7 });
+						var __arc = __grafico_arco.path().attr({ arc: [percent, mainGraphic.colors[s2i3], 66, start], 'stroke-width': 7 });
 						__arc.node.setAttribute('data-grupo', data_grupo['nome']);
 						__arc.node.setAttribute('data-pais', nome);
 						__arc.node.setAttribute('data-shape', 'arc');
@@ -592,7 +587,7 @@ copa2014.selecoes = (function(){
 					$('#grafico-paises-data').append(tooltip_data);
 					
 			}, // chart
-			group_menu: function(){
+			groupMenu: function(){
 				s2i6 = 0;
 				$('ul.grupos').each(function(){
 					s2i6 ++;
@@ -618,9 +613,9 @@ copa2014.selecoes = (function(){
 				});
 				
 			},
-			ver_pais: function(){
+			viewCountry: function(){
 				grupo = $('#grupos-mapa').attr('data-ativo');
-				var data = obj0.get_data();
+				var data = mainGraphic.getData();
 				var data_grupo = data['grupos'][grupo];
 					
 				$('[data-behaviour=hover-pais][data-grupo='+grupo+']', '#grupos-mapa').on('mouseover',function(e){
@@ -734,7 +729,7 @@ copa2014.selecoes = (function(){
 					});
 					
 			},
-			clear_scene: function() {					
+			clearScene: function() {					
 					// Reseta os valores da variável por conta do IE8					
 					paises_grupo = [];
 					$('.paises-grupos li').each(function(){
@@ -757,9 +752,9 @@ copa2014.selecoes = (function(){
 			}	
 		},// scene2
 		scene3: {
-			start_scene: function(grupo, pais) {
+			startScene: function(grupo, pais) {
 				var grupo = grupo? grupo: "A";
-				var data = obj0.get_data();
+				var data = mainGraphic.getData();
 				if(!data) { return false;}
 				$('#pais-dinamico').animate({opacity:0}, 200);
 				$('#grupos-detalhe').prepend('<div class="loader center"></div>');
@@ -814,16 +809,16 @@ copa2014.selecoes = (function(){
 								}
 								});	  
 							 
-							 obj0.scene3.tooltip_patrocinador();
-							 obj0.scene3.svg_icones(grupo, pais);
+							 mainGraphic.scene3.tooltipSponsor();
+							 mainGraphic.scene3.svgIcons(grupo, pais);
 						 } 
 					 });
 				
-				}, // start_scene
-				tooltip_patrocinador: function(){
+				}, // startScene
+				tooltipSponsor: function(){
 					$('.lista-patrocinadores li span').on('mouseover', function(e){
 								e.stopImmediatePropagation();
-								 JSON_data = obj0.get_data();
+								 JSON_data = mainGraphic.getData();
 								 var el = $(this);
 								 var patrocinador = $(this).text();
 								 var selecoes = 'seleções';
@@ -859,8 +854,8 @@ copa2014.selecoes = (function(){
 										});
 								 });
 					},
-				svg_icones: function(grupo, pais){
-							 var data = obj0.get_data();
+				svgIcons: function(grupo, pais){
+							 var data = mainGraphic.getData();
 							 var data_pais = data['grupos'][grupo]['selecoes'][pais];					
 							 var bandeira = copa2014.flags[pais];
 							 
@@ -878,18 +873,18 @@ copa2014.selecoes = (function(){
 							 $('#thumb-tecnico').svg({ path: tecnico, width: '45', height: '40', x: '465', y: '1230' });
 					}	
 			}// scene3
-		} //obj0
+		} //mainGraphic
 
 		return {
-			obj0: obj0,
+			mainGraphic: mainGraphic,
 			init: function(){	
-				var data = obj0.get_data();
+				var data = mainGraphic.getData();
 				if(!data) {
-					obj0.store_data();	
+					mainGraphic.storeData();	
 				} else {
-					obj0['scene1'].start_scene();
-					obj0['scene2'].start_scene();
-					obj0['scene3'].start_scene();
+					mainGraphic['scene1'].startScene();
+					mainGraphic['scene2'].startScene();
+					mainGraphic['scene3'].startScene();
 					}
 				}
 	}
@@ -897,7 +892,7 @@ copa2014.selecoes = (function(){
 })(); // function
 
 $(document).ready(function () {
-	copa2014.selecoes.init();
+	copa2014.teams.init();
 	
 });
 
