@@ -3,3 +3,5 @@ This infographic shines a light on the financial transations between teams and p
 
 ## How it works ##
 The first scene of the infographic gets data from a JSON file and turns it into a chart, where you can see the team values separated by the tournament groups. The second is a vector world map where you can see the data by navigating through groups and countries. Finally, the last one is a deeper look in each participant country, with the complete team data, coach, most valuable players, World Cup participations, wins, sponsors etc. The infographic is in Portuguese, but it's pretty self-explanatory.
+
+You can see it working right here: http://www.heloisabiagi.com/projects/infografico-copa2014/
