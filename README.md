@@ -1,4 +1,4 @@
-# world-cup-2014-infographic
+# World Cup 2014 - Infographic
 This infographic shines a light on the financial transations between teams and players during the **World Cup 2014**. It was built with **Raphaël.js**, a vector graphics library that solves browsers incompatibilities and makes working with HTML5 canvas, vectors and shapes way easier and more fun. 
 
 ## How it works ##
